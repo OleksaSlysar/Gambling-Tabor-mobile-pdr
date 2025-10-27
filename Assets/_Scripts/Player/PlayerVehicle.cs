@@ -4,7 +4,7 @@ public class PlayerVehicle : Venicle
 {
     private InputManager inputManager;
 
-    [System.Obsolete]
+
     public override void Start()
 {
     base.Start();

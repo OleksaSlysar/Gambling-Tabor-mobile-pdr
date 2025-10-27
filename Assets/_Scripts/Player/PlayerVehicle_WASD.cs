@@ -2,12 +2,11 @@
 
 using UnityEngine;
 
-
-public class PlayerVehicle_WASD : Vehicle 
+public class PlayerVehicle_WASD : Venicle 
 {
   
 
-    protected override void Start()
+    public override void Start()
     {
         
         base.Start(); 
@@ -28,9 +27,9 @@ public class PlayerVehicle_WASD : Vehicle
 
     protected override float GetBrakeInput()
     {
-       
-        float s_key_brake = Mathf.Abs(Mathf.Min(0, Input.GetAxis("Vertical")));
 
+        float s_key_brake = Mathf.Abs(Mathf.Min(0, Input.GetAxis("Vertical")));
+        float spacebar_brake = Input.GetKey(KeyCode.Space) ? 1f : 0f;
         return Mathf.Max(s_key_brake, spacebar_brake);
     }
 }
