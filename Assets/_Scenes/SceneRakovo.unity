@@ -168,7 +168,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ae92ccf886898e4498585307b6c3f4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ArcadeCar
-  moveSpeed: 10000
+  moveSpeed: 3000
   turnSpeed: 20000
   gripFactor: 10
 --- !u!64 &38642
@@ -188,7 +188,7 @@ MeshCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 5
   m_Convex: 1
   m_CookingOptions: 30
