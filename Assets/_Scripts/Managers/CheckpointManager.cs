@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class CheckpointManager : MonoBehaviour
 {
+   
     public static CheckpointManager Instance { get; private set; }
 
     private void Awake()
@@ -16,6 +17,11 @@ public class CheckpointManager : MonoBehaviour
             Instance = this;
         }
     }
+    
+
+    [Header("Налаштування Телепортації")]
+    [Tooltip("Перетягніть сюди GameObject вашої машини")]
+    public Rigidbody playerRigidbody; 
 
     private Transform lastCheckpoint; 
 
@@ -27,6 +33,7 @@ public class CheckpointManager : MonoBehaviour
             ReturnToLastCheckpoint();
         }
 
+    
         if (Input.GetKeyDown(KeyCode.T))
         {
             ResetAllCheckpoints();
@@ -36,29 +43,51 @@ public class CheckpointManager : MonoBehaviour
     public void SetNewCheckpoint(Transform newCheckpointTransform)
     {
         lastCheckpoint = newCheckpointTransform;
-        
         Debug.Log("=== ЧЕКПОІНТ ПРОЙДЕНО: " + newCheckpointTransform.name + " ===");
     }
 
-
     private void ReturnToLastCheckpoint()
     {
-        if (lastCheckpoint != null)
+       
+        if (lastCheckpoint != null && playerRigidbody != null)
         {
-        
-            Debug.Log("--- [R] ЗАГЛУШКА: Повернення до останнього чекпоінту (" + lastCheckpoint.name + ") ---");
+           
+            playerRigidbody.isKinematic = true; 
+
+           
+            playerRigidbody.transform.position = lastCheckpoint.position;
             
+          
+            playerRigidbody.transform.rotation = lastCheckpoint.rotation;
+
          
+            playerRigidbody.linearVelocity = Vector3.zero;
+            playerRigidbody.angularVelocity = Vector3.zero;
+
+           
+            Invoke(nameof(ReEnablePhysics), 0.1f);
+            
+            Debug.Log("--- [R] Машину повернуто до чекпоінту: " + lastCheckpoint.name + " ---");
+        }
+        else if (playerRigidbody == null)
+        {
+            Debug.LogError("--- [R] Не можу повернути! 'Player Rigidbody' не призначено у CheckpointManager!");
         }
         else
         {
-            Debug.LogWarning("--- [R] ЗАГЛУШКА: Немає чекпоінтів, до яких можна повернутися! ---");
+            Debug.LogWarning("--- [R] Немає чекпоінтів, до яких можна повернутися! ---");
         }
+    }
+
+
+    private void ReEnablePhysics()
+    {
+        playerRigidbody.isKinematic = false;
     }
 
     private void ResetAllCheckpoints()
     {
         lastCheckpoint = null; 
-        Debug.Log("--- [T] ЗАГЛУШКА: Скидання всіх чекпоінтів ---");
+        Debug.Log("--- [T] Скидання всіх чекпоінтів ---");
     }
 }
