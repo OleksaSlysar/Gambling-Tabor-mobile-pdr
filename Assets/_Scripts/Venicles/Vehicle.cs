@@ -1,53 +1,82 @@
 
+// _Scripts/Vehicles/Vehicle.cs
 using UnityEngine;
-public abstract class Venicle : MonoBehaviour
+
+// Вимагає Rigidbody на машині
+[RequireComponent(typeof(Rigidbody))]
+public abstract class Vehicle : MonoBehaviour
 {
+    [Header("Фізичні Компоненти")]
+    [Tooltip("Масив з 4-х WheelCollider (FL, FR, RL, RR)")]
+    public WheelCollider[] wheelColliders = new WheelCollider[4];
+    
+    [Tooltip("Масив з 4-х 3D-моделей коліс (FL, FR, RL, RR)")]
+    public Transform[] wheelMeshes = new Transform[4];
 
-    public float maxSpeed = 120f;
-    public float currentSpeed;
-    public float steeringAngle = 30f;
-    public float motorTorque = 1500f;
-    public float brakeTorque = 3000f;
-    [Header("Components")]
-    public WheelCollider[] wheelColliders;
-    public Transform[] wheelMeshes;
-    public virtual void Start() { }
+    [Header("Параметри Руху")]
+    public float motorTorque = 2000f; 
+    public float brakeTorque = 3000f; 
+    public float maxSteeringAngle = 35f; 
 
-    protected abstract float GetMotorInput();
-    protected abstract float GetSteeringInput();
-    protected abstract float GetBrakeInput();
+    protected Rigidbody rb;
+    public float currentSpeedKPH; 
 
+  
+    public virtual void Start()
+    {
+        rb = GetComponent<Rigidbody>();
+        
+       
+        rb.centerOfMass = new Vector3(0, -0.5f, 0); 
+    }
+
+  
     protected virtual void FixedUpdate()
     {
+   
         float motor = GetMotorInput() * motorTorque;
-        float steering = GetSteeringInput() * steeringAngle;
+        float steering = GetSteeringInput() * maxSteeringAngle;
         float brake = GetBrakeInput() * brakeTorque;
 
+    
         for (int i = 0; i < wheelColliders.Length; i++)
         {
-            if (i < 2)
+           
+            if (i < 2) 
             {
                 wheelColliders[i].steerAngle = steering;
             }
 
-            wheelColliders[i].motorTorque = motor;
-            wheelColliders[i].brakeTorque = brake;
+           
+            if (brake > 0)
+            {
+                wheelColliders[i].brakeTorque = brake;
+                wheelColliders[i].motorTorque = 0f; 
+            }
+            else
+            {
+                wheelColliders[i].brakeTorque = 0f;
+            
+                wheelColliders[i].motorTorque = motor; 
+            }
 
             UpdateWheelMesh(wheelColliders[i], wheelMeshes[i]);
-
-
         }
-        currentSpeed = wheelColliders[0].rpm * wheelColliders[0].radius * 2f * Mathf.PI / 60f * 3.6f;
+        
+        currentSpeedKPH = rb.linearVelocity.magnitude * 3.6f;
     }
+
+
+    protected abstract float GetMotorInput();
+    protected abstract float GetSteeringInput();
+    protected abstract float GetBrakeInput();
     
     void UpdateWheelMesh(WheelCollider collider, Transform mesh)
     {
         Vector3 pos;
         Quaternion rot;
-        collider.GetWorldPose(out pos, out rot);
+        collider.GetWorldPose(out pos, out rot); 
         mesh.position = pos;
         mesh.rotation = rot;
-
     }
-    
 }
