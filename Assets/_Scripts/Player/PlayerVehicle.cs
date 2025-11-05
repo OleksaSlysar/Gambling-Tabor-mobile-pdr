@@ -8,15 +8,15 @@ public class PlayerVehicle : Vehicle
     // налаштували проект на "Both"
 
     protected override float GetMotorInput()
-    {
-        // Input.GetAxis("Vertical") - це W (дає +1) і S (дає -1)
-        // Ми беремо тільки позитивні значення для газу
-        return Mathf.Clamp01(Input.GetAxis("Vertical"));
-    }
+{
+    float motor = Mathf.Clamp01(Input.GetAxis("Vertical"));
+    Debug.Log("Motor Input: " + motor); // <-- ДОДАЙТЕ ЦЕЙ РЯДОК
+    return motor;
+}
 
     protected override float GetSteeringInput()
     {
-        // Input.GetAxis("Horizontal") - це A (дає -1) і D (дає +1)
+        // A дає -1, D дає +1
         return Input.GetAxis("Horizontal");
     }
 
