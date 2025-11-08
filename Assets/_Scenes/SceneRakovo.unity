@@ -4061,7 +4061,7 @@ GameObject:
   - component: {fileID: 590547384}
   m_Layer: 0
   m_Name: Checkpoint_01
-  m_TagString: Untagged
+  m_TagString: Checkpoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10425,7 +10425,7 @@ GameObject:
   - component: {fileID: 1386448212}
   m_Layer: 0
   m_Name: Checkpoint_02
-  m_TagString: Untagged
+  m_TagString: Checkpoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10675,11 +10675,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1394028613}
   m_Mesh: {fileID: 2733448660354597953, guid: d08340f06038c754e89be7b60909fe27, type: 3}
---- !u!4 &1410074747 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4306643203051859313, guid: b8ee6dc1e0c75304e9fd9f3e257b9912, type: 3}
-  m_PrefabInstance: {fileID: 1730083425}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1413073673
 GameObject:
   m_ObjectHideFlags: 0
@@ -14069,20 +14064,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27f92e20331556c4990a20f6dea480a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerVehicle
-  wheelColliders:
-  - {fileID: 1730083435}
-  - {fileID: 1730083436}
-  - {fileID: 1730083434}
-  - {fileID: 1798413534}
-  wheelMeshes:
-  - {fileID: 1410074747}
-  - {fileID: 1730083440}
-  - {fileID: 1730083437}
-  - {fileID: 1798413535}
-  motorTorque: 2500
-  brakeTorque: 5000
-  maxSteeringAngle: 35
-  currentSpeedKPH: 0
 --- !u!54 &1730083433
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -14227,16 +14208,6 @@ WheelCollider:
   m_LayerOverridePriority: 0
   m_Enabled: 1
   m_ProvidesContacts: 0
---- !u!4 &1730083437 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: -2093772787462966335, guid: b8ee6dc1e0c75304e9fd9f3e257b9912, type: 3}
-  m_PrefabInstance: {fileID: 1730083425}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &1730083440 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4865064391339405807, guid: b8ee6dc1e0c75304e9fd9f3e257b9912, type: 3}
-  m_PrefabInstance: {fileID: 1730083425}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1733293512 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 9ba8aff49e85c3a4597798e0c81d9e7c, type: 3}
@@ -15015,11 +14986,6 @@ WheelCollider:
   m_LayerOverridePriority: 0
   m_Enabled: 1
   m_ProvidesContacts: 0
---- !u!4 &1798413535 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: -3274006528333456403, guid: b8ee6dc1e0c75304e9fd9f3e257b9912, type: 3}
-  m_PrefabInstance: {fileID: 1730083425}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1800822181
 GameObject:
   m_ObjectHideFlags: 0

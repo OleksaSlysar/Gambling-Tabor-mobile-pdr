@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "140743856956",
+    "project_id": "pdr-driving-app",
+    "storage_bucket": "pdr-driving-app.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:140743856956:android:efd7a6b7f841a94d29c439",
+        "android_client_info": {
+          "package_name": "com.copisko.pdrdriving"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "140743856956-s2ctpgk99vn8m7tvigu01c6if4n70fbj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCupxwAe9TJGErt_97KYrAcGy2VA5apMbE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "140743856956-s2ctpgk99vn8m7tvigu01c6if4n70fbj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

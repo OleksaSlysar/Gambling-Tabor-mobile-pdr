@@ -1,9 +1,8 @@
-// _Scripts/Managers/CheckpointManager.cs
 using UnityEngine;
 
 public class CheckpointManager : MonoBehaviour
 {
-   
+    // --- Singleton ---
     public static CheckpointManager Instance { get; private set; }
 
     private void Awake()
@@ -17,23 +16,20 @@ public class CheckpointManager : MonoBehaviour
             Instance = this;
         }
     }
-    
+    // --- Кінець Singleton ---
 
     [Header("Налаштування Телепортації")]
-    [Tooltip("Перетягніть сюди GameObject вашої машини")]
-    public Rigidbody playerRigidbody; 
+    [Tooltip("Перетягніть сюди Rigidbody вашої машини")]
+    public Rigidbody playerRigidbody;
 
     private Transform lastCheckpoint; 
 
     void Update()
     {
-      
         if (Input.GetKeyDown(KeyCode.R))
         {
             ReturnToLastCheckpoint();
         }
-
-    
         if (Input.GetKeyDown(KeyCode.T))
         {
             ResetAllCheckpoints();
@@ -46,25 +42,17 @@ public class CheckpointManager : MonoBehaviour
         Debug.Log("=== ЧЕКПОІНТ ПРОЙДЕНО: " + newCheckpointTransform.name + " ===");
     }
 
-    private void ReturnToLastCheckpoint()
+    // Цей метод ПУБЛІЧНИЙ, щоб RaycastCar міг його викликати
+    public void ReturnToLastCheckpoint()
     {
-       
         if (lastCheckpoint != null && playerRigidbody != null)
         {
-           
             playerRigidbody.isKinematic = true; 
-
-           
             playerRigidbody.transform.position = lastCheckpoint.position;
-            
-          
             playerRigidbody.transform.rotation = lastCheckpoint.rotation;
-
-         
             playerRigidbody.linearVelocity = Vector3.zero;
             playerRigidbody.angularVelocity = Vector3.zero;
 
-           
             Invoke(nameof(ReEnablePhysics), 0.1f);
             
             Debug.Log("--- [R] Машину повернуто до чекпоінту: " + lastCheckpoint.name + " ---");
@@ -78,8 +66,7 @@ public class CheckpointManager : MonoBehaviour
             Debug.LogWarning("--- [R] Немає чекпоінтів, до яких можна повернутися! ---");
         }
     }
-
-
+    
     private void ReEnablePhysics()
     {
         playerRigidbody.isKinematic = false;

@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class TrafficSystem : MonoBehaviour
 {
-    public PlayerVehicle player;
+    public RaycastCar player;
     
     // ... посилання на всі світлофори, знаки ...
 
