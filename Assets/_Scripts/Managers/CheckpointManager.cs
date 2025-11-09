@@ -2,79 +2,88 @@ using UnityEngine;
 
 public class CheckpointManager : MonoBehaviour
 {
-    // --- Singleton ---
     public static CheckpointManager Instance { get; private set; }
+
+    [Header("Налаштування Телепортації")]
+    public Rigidbody playerRigidbody; // Перетягніть сюди машину
+
+    [Header("Логіка Чекпоінтів")]
+    [Tooltip("Найперша точка старту. Встановіть в інспекторі.")]
+    public Transform startingCheckpoint; // <-- НОВЕ ПОЛЕ
+
+    private Transform lastCheckpoint; // Останній пройдений чекпоінт
 
     private void Awake()
     {
-        if (Instance != null && Instance != this)
+        if (Instance != null && Instance != this) Destroy(this.gameObject);
+        else Instance = this;
+    }
+
+    void Start()
+    {
+        // При старті гри, "стартовий" чекпоінт 
+        // АВТОМАТИЧНО стає нашим "останнім" чекпоінтом.
+        if (startingCheckpoint != null)
         {
-            Destroy(this.gameObject);
+            lastCheckpoint = startingCheckpoint;
+            // Телепортуємо гравця на старт (про всяк випадок)
+            TeleportPlayer(startingCheckpoint);
         }
         else
         {
-            Instance = this;
-        }
-    }
-    // --- Кінець Singleton ---
-
-    [Header("Налаштування Телепортації")]
-    [Tooltip("Перетягніть сюди Rigidbody вашої машини")]
-    public Rigidbody playerRigidbody;
-
-    private Transform lastCheckpoint; 
-
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            ReturnToLastCheckpoint();
-        }
-        if (Input.GetKeyDown(KeyCode.T))
-        {
-            ResetAllCheckpoints();
+            Debug.LogError("СТАРТОВИЙ ЧЕКПОІНТ ('Starting Checkpoint') не призначено в CheckpointManager!");
         }
     }
 
+    // Цей метод викликається тригерами завдань (LessonObjectiveTrigger)
     public void SetNewCheckpoint(Transform newCheckpointTransform)
     {
         lastCheckpoint = newCheckpointTransform;
-        Debug.Log("=== ЧЕКПОІНТ ПРОЙДЕНО: " + newCheckpointTransform.name + " ===");
+        Debug.Log("=== НОВИЙ ЧЕКПОІНТ: " + newCheckpointTransform.name + " ===");
     }
 
-    // Цей метод ПУБЛІЧНИЙ, щоб RaycastCar міг його викликати
+    // --- ПУБЛІЧНІ МЕТОДИ ДЛЯ ПЕРЕЗАПУСКУ ---
+
+    // Телепортує до ОСТАННЬОГО
     public void ReturnToLastCheckpoint()
     {
         if (lastCheckpoint != null && playerRigidbody != null)
         {
-            playerRigidbody.isKinematic = true; 
-            playerRigidbody.transform.position = lastCheckpoint.position;
-            playerRigidbody.transform.rotation = lastCheckpoint.rotation;
-            playerRigidbody.linearVelocity = Vector3.zero;
-            playerRigidbody.angularVelocity = Vector3.zero;
+            Debug.Log("--- Повернення до ОСТАННЬОГО чекпоінту: " + lastCheckpoint.name + " ---");
+            TeleportPlayer(lastCheckpoint);
+        }
+    }
 
-            Invoke(nameof(ReEnablePhysics), 0.1f);
-            
-            Debug.Log("--- [R] Машину повернуто до чекпоінту: " + lastCheckpoint.name + " ---");
-        }
-        else if (playerRigidbody == null)
+    // Телепортує до НАЙПЕРШОГО
+    public void ReturnToStartCheckpoint()
+    {
+        if (startingCheckpoint != null && playerRigidbody != null)
         {
-            Debug.LogError("--- [R] Не можу повернути! 'Player Rigidbody' не призначено у CheckpointManager!");
+            Debug.Log("--- Повернення до СТАРТОВОГО чекпоінту: " + startingCheckpoint.name + " ---");
+            TeleportPlayer(startingCheckpoint);
         }
-        else
-        {
-            Debug.LogWarning("--- [R] Немає чекпоінтів, до яких можна повернутися! ---");
-        }
+    }
+
+    // --- Приватний метод телепортації ---
+    private void TeleportPlayer(Transform targetCheckpoint)
+    {
+        // Тимчасово вимикаємо фізику, щоб уникнути "вибухів"
+        playerRigidbody.isKinematic = true; 
+        
+        // Телепортуємо
+        playerRigidbody.transform.position = targetCheckpoint.position;
+        playerRigidbody.transform.rotation = targetCheckpoint.rotation;
+
+        // Скидаємо всю швидкість
+        playerRigidbody.linearVelocity = Vector3.zero;
+        playerRigidbody.angularVelocity = Vector3.zero;
+
+        // Вмикаємо фізику назад через долю секунди
+        Invoke(nameof(ReEnablePhysics), 0.1f);
     }
     
     private void ReEnablePhysics()
     {
         playerRigidbody.isKinematic = false;
-    }
-
-    private void ResetAllCheckpoints()
-    {
-        lastCheckpoint = null; 
-        Debug.Log("--- [T] Скидання всіх чекпоінтів ---");
     }
 }
