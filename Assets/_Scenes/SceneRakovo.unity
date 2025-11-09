@@ -5479,7 +5479,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18aa7ee8631134740846ef7978e75933, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CheckpointManager
-  playerRigidbody: {fileID: 0}
+  playerRigidbody: {fileID: 1110340424}
 --- !u!4 &863781315
 Transform:
   m_ObjectHideFlags: 0
@@ -8027,8 +8027,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc635265ac0b3544d9c824edfbd9c96b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ArcadeCar_v3
-  maxMoveSpeed: 1
-  turnSpeed: 1
+  maxMoveSpeed: 0.3
+  turnSpeed: 200
 --- !u!54 &1110340424
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -8039,7 +8039,7 @@ Rigidbody:
   serializedVersion: 5
   m_Mass: 1500
   m_LinearDamping: 0.2
-  m_AngularDamping: 10
+  m_AngularDamping: 200
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -8077,6 +8077,11 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 3.090559, y: 2.3751554, z: 5.8493853}
   m_Center: {x: -0.02117002, y: 0.045469463, z: -2.852068}
+--- !u!4 &1110340428 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: c9139e83a7713d040a13921c3a24999b, type: 3}
+  m_PrefabInstance: {fileID: 1110340421}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1125064401 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5233112405309087440, guid: e6e80e0b25af0294c92345e3f3ecf447, type: 3}
@@ -10125,13 +10130,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1393418866}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: 0.24153669, z: -0, w: 0.9703917}
-  m_LocalPosition: {x: -2.927, y: 0.544, z: -8.429}
+  m_LocalRotation: {x: -0, y: 0.97135085, z: -0, w: -0.23765019}
+  m_LocalPosition: {x: -2.365, y: 0.544, z: -7.285}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 27.955, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 207.496, z: 0}
 --- !u!114 &1393418870
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10144,7 +10149,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76b950580520b9243aec3c0616ab092a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CameraFollow
-  target: {fileID: 0}
+  target: {fileID: 1110340428}
   offset: {x: 0, y: 1, z: -1}
   smoothSpeed: 10
 --- !u!1 &1394028613
