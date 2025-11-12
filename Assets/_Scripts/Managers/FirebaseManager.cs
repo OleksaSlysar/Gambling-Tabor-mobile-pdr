@@ -15,11 +15,12 @@ public class FirebaseManager : MonoBehaviour
         else
         {
             Instance = this;
-            DontDestroyOnLoad(this.gameObject); 
-            
+            DontDestroyOnLoad(this.gameObject);
+
 
             InitializeFirebase();
         }
+        DontDestroyOnLoad(this.gameObject);
     }
 
     void InitializeFirebase()

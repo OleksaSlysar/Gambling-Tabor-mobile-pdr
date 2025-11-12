@@ -16,6 +16,8 @@ public class InputManager : MonoBehaviour
             Instance = this;
             DontDestroyOnLoad(this.gameObject);
         }
+        
+        
     }
     // --- Кінець Singleton ---
 
